@@ -1,102 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-  const navEl = document.querySelector(".navigation");
-  const hamburgerToggleEl = document.querySelector(".navigation__toggle-menu");
-
-  hamburgerToggleEl.addEventListener("click", () => {
-    navEl.classList.toggle("navigation--toggle-active");
-  });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const sliderWrapper = document.querySelector('.slider-wrapper');
-  const nextButton = document.querySelector('.team__slider-button');
-
-
-  let currentScroll = 0;
-
-
-  const cardWidth = document.querySelector('.team__member-card')?.offsetWidth || 0;
-
-  nextButton.addEventListener('click', () => {
-
-    const nextScroll = currentScroll + cardWidth;
-
-
-    sliderWrapper.scrollTo({
-      left: nextScroll,
-      behavior: 'smooth'
+  // NAVIGATION TOGGLE
+  const navEl = document.querySelector('.navigation');
+  const hamburgerToggleEl = document.querySelector('.navigation__toggle-menu');
+  if (hamburgerToggleEl && navEl) {
+    hamburgerToggleEl.addEventListener('click', () => {
+      navEl.classList.toggle('navigation--toggle-active');
     });
-
-
-    currentScroll = nextScroll;
-
-
-    if (currentScroll >= sliderWrapper.scrollWidth - sliderWrapper.clientWidth) {
-      currentScroll = 0;
-      sliderWrapper.scrollTo({
-        left: 0,
-        behavior: 'smooth'
-      });
-    }
-  });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const sliderWrapperReview = document.querySelector('.slider-wrapper');
-  const nextButton = document.querySelector('.review__slider-btns button[aria-label="Slide forward"]');
-  const prevButton = document.querySelector('.review__slider-btns button[aria-label="Slide back"]');
-
-
-  let currentScroll = 0;
-
-
-  const cardWidth = document.querySelector('.review__card')?.offsetWidth || 0;
-
-  if (cardWidth === 0) {
-    console.error("Card width is zero. Check if cards are rendered correctly.");
-    return;
   }
 
-  nextButton.addEventListener('click', () => {
+  // TEAM SLIDER FUNCTIONALITY
+  const teamSliderWrapper = document.querySelector('#team .slider-wrapper');
+  const teamNextButton = document.querySelector('.team__slider-button');
+  let teamCurrentScroll = 0;
+  const teamCardWidth = document.querySelector('#team .team__member-card')?.offsetWidth || 0;
+  if (teamNextButton && teamSliderWrapper && teamCardWidth > 0) {
+    teamNextButton.addEventListener('click', () => {
+      const nextScroll = teamCurrentScroll + teamCardWidth;
+      teamSliderWrapper.scrollTo({ left: nextScroll, behavior: 'smooth' });
+      teamCurrentScroll = nextScroll;
+      // Reset scroll if at the end
+      if (teamCurrentScroll >= teamSliderWrapper.scrollWidth - teamSliderWrapper.clientWidth) {
+        teamCurrentScroll = 0;
+        teamSliderWrapper.scrollTo({ left: 0, behavior: 'smooth' });
+      }
+    });
+  }
 
+  // REVIEW SLIDER FUNCTIONALITY
+  const reviewSliderWrapper = document.querySelector('#review .slider-wrapper');
+  const reviewNextButton = document.querySelector('.review__slider-btns button[aria-label="Slide forward"]');
+  const reviewPrevButton = document.querySelector('.review__slider-btns button[aria-label="Slide back"]');
+  let reviewCurrentScroll = 0;
+  const reviewCardWidth = document.querySelector('#review .review__card')?.offsetWidth || 0;
+  if (reviewCardWidth === 0) {
+    console.error("Review card width is zero. Check if cards are rendered correctly.");
+  }
+  if (reviewSliderWrapper && reviewNextButton && reviewPrevButton && reviewCardWidth > 0) {
+    reviewNextButton.addEventListener('click', () => {
+      const nextScroll = reviewCurrentScroll + reviewCardWidth;
+      if (nextScroll >= reviewSliderWrapper.scrollWidth - reviewSliderWrapper.clientWidth) {
+        reviewCurrentScroll = 0;
+        reviewSliderWrapper.scrollTo({ left: reviewCurrentScroll, behavior: 'smooth' });
+      } else {
+        reviewSliderWrapper.scrollTo({ left: nextScroll, behavior: 'smooth' });
+        reviewCurrentScroll = nextScroll;
+      }
+    });
 
-    const nextScroll = currentScroll + cardWidth;
-
-    if (nextScroll >= sliderWrapperReview.scrollWidth - sliderWrapperReview.clientWidth) {
-      currentScroll = 0;
-      sliderWrapperReview.scrollTo({
-        left: currentScroll,
-        behavior: 'smooth'
-      });
-    } else {
-      sliderWrapperReview.scrollTo({
-        left: nextScroll,
-        behavior: 'smooth'
-      });
-      currentScroll = nextScroll;
-    }
-  });
-
-  prevButton.addEventListener('click', () => {
-    console.log("Previous button clicked!");
-
-    const prevScroll = currentScroll - cardWidth;
-
-    if (prevScroll < 0) {
-      currentScroll = sliderWrapperReview.scrollWidth - sliderWrapperReview.clientWidth;
-      sliderWrapperReview.scrollTo({
-        left: currentScroll,
-        behavior: 'smooth'
-      });
-    } else {
-      sliderWrapperReview.scrollTo({
-        left: prevScroll,
-        behavior: 'smooth'
-      });
-      currentScroll = prevScroll;
-    }
-  });
+    reviewPrevButton.addEventListener('click', () => {
+      const prevScroll = reviewCurrentScroll - reviewCardWidth;
+      if (prevScroll < 0) {
+        reviewCurrentScroll = reviewSliderWrapper.scrollWidth - reviewSliderWrapper.clientWidth;
+        reviewSliderWrapper.scrollTo({ left: reviewCurrentScroll, behavior: 'smooth' });
+      } else {
+        reviewSliderWrapper.scrollTo({ left: prevScroll, behavior: 'smooth' });
+        reviewCurrentScroll = prevScroll;
+      }
+    });
+  }
 });
-
-
