@@ -8,23 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // TEAM SLIDER FUNCTIONALITY
-  const teamSliderWrapper = document.querySelector('#team .slider-wrapper');
-  const teamNextButton = document.querySelector('.team__slider-button');
-  let teamCurrentScroll = 0;
-  const teamCardWidth = document.querySelector('#team .team__member-card')?.offsetWidth || 0;
-  if (teamNextButton && teamSliderWrapper && teamCardWidth > 0) {
-    teamNextButton.addEventListener('click', () => {
-      const nextScroll = teamCurrentScroll + teamCardWidth;
+// TEAM SLIDER FUNCTIONALITY
+const teamSliderWrapper = document.querySelector('#team .slider-wrapper');
+const teamNextButton = document.querySelector('.team__slider-button');
+let teamCurrentScroll = 0;
+const teamCardWidth = document.querySelector('#team .team__member-card')?.offsetWidth || 0;
+
+if (teamNextButton && teamSliderWrapper && teamCardWidth > 0) {
+  teamNextButton.addEventListener('click', () => {
+    const nextScroll = teamCurrentScroll + teamCardWidth;
+    if (nextScroll >= teamSliderWrapper.scrollWidth - teamSliderWrapper.clientWidth) {
+      // Reset to beginning if the next scroll position exceeds the maximum scrollable width
+      teamCurrentScroll = 0;
+      teamSliderWrapper.scrollTo({ left: teamCurrentScroll, behavior: 'smooth' });
+    } else {
       teamSliderWrapper.scrollTo({ left: nextScroll, behavior: 'smooth' });
       teamCurrentScroll = nextScroll;
-      // Reset scroll if at the end
-      if (teamCurrentScroll >= teamSliderWrapper.scrollWidth - teamSliderWrapper.clientWidth) {
-        teamCurrentScroll = 0;
-        teamSliderWrapper.scrollTo({ left: 0, behavior: 'smooth' });
-      }
-    });
-  }
+    }
+  });
+}
 
   // REVIEW SLIDER FUNCTIONALITY
   const reviewSliderWrapper = document.querySelector('#review .slider-wrapper');
