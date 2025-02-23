@@ -119,7 +119,7 @@
 The deployed link is attached:
 
 ```sh
-https://catalog-week1-assignment-iege40cg3-jaibhedias-projects.vercel.app/
+https://catalog-week1-assignment.vercel.app/
 ```
 
 
