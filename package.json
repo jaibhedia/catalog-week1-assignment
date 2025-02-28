@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "sass ./sass/index.scss  ./css/style.css --watch",
-    "build": "sass ./sass/index.scss  ./css/style.css --style=compressed --no-source-map",
     "devserver": "live-server --browser=chrome"
   },
   "keywords": [],
