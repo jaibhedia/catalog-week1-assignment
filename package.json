@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start",
-    "build": "npm run build"
+   "start": "sass ./sass/index.scss  ./css/style.css --watch",
+  "build": "sass ./sass/index.scss  ./css/style.css --style=compressed --no-source-map"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "sass": "^1.85.0"
+    "sass": "^1.85.1"
   }
 }
