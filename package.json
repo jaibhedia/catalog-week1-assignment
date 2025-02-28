@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-   "start": "sass ./sass/index.scss  ./css/style.css --watch",
-  "build": "sass ./sass/index.scss  ./css/style.css --style=compressed --no-source-map"
+    "start": "sass ./sass/index.scss  ./css/style.css --watch",
+    "build": "sass ./sass/index.scss  ./css/style.css --style=compressed --no-source-map",
+    "devserver": "live-server --browser=chrome"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "sass": "^1.85.1"
+    "live-server": "^1.2.2",
+    "node-sass": "^9.0.0",
+    "sass": "^1.85.1",
+    "sass-embedded": "^1.85.1"
   }
 }
